@@ -20,11 +20,13 @@ const users = [{
 const posts = [{
     id: '1',
     title: 'help',
-    body: 'coding forever and ever and ever'
+    body: 'coding forever and ever and ever',
+    author: '1'
 }, {
     id: '2',
     title: 'help',
-    body: 'more eggs on the roof'
+    body: 'more eggs on the roof',
+    author: '2'
 }]
 
 const typeDefs = `
@@ -45,6 +47,7 @@ const typeDefs = `
         id: ID!
         title: String!
         body: String!
+        author: User!
     }
 `
 //resolver or api
@@ -79,6 +82,13 @@ const resolvers = {
                 return titleMatch || bodyMatch
             })
         }
+     },
+     Post: {
+         author(parent, args, ctx, info) {
+            return users.find((user) => {
+                return user.id === parent.author
+            })
+         }
      }
 }
 
